@@ -88,7 +88,7 @@ const FormComponent = () => {
             <Button
               onClick={handleOnClick}
               variant="contained"
-              disabled={!city}
+              disabled={!city.label}
             >
               Submit
             </Button>
