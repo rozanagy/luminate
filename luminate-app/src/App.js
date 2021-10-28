@@ -1,6 +1,6 @@
 import React from "react";
 import "./style/App.css";
-import Input from "./components/UI/Input";
+import FormComponent from "./components/UI/FormComponent";
 
 const App = () => {
   return (
@@ -12,7 +12,7 @@ const App = () => {
       </header>
       <body className="container">
         <div className="card">
-          <Input />
+          <FormComponent />
         </div>
       </body>
     </div>

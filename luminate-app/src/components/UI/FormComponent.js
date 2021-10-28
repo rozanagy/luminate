@@ -6,6 +6,9 @@ import { Button } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Grid } from "@mui/material";
 import { format } from "date-fns";
+import Alert from "@mui/material/Alert";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 import cities from "../../constants/cities";
 
@@ -25,9 +28,9 @@ const theme = createTheme({
   },
 });
 
-const Input = () => {
+const FormComponent = () => {
   const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [city, setCity] = useState({ label: "" });
   const [candleTime, setCandleTime] = useState("");
   const [date, setDate] = useState("");
@@ -37,17 +40,18 @@ const Input = () => {
   };
 
   const handleOnClick = () => {
+    setIsLoading(true);
     fetch(`https://www.hebcal.com/shabbat?cfg=json&city=${city.label}`)
       .then((res) => res.json())
       .then(
         (result) => {
           setDate(result?.items[0]?.date);
           setCandleTime(result?.items[0]?.title);
+          setIsLoading(false);
         },
         (error) => {
-          setIsLoaded(true);
-          setError(error);
-          console.log(error);
+          setError(error.message);
+          setIsLoading(false);
         }
       );
   };
@@ -81,7 +85,11 @@ const Input = () => {
         </Grid>
         <Grid item>
           <ThemeProvider theme={theme}>
-            <Button onClick={handleOnClick} variant="contained">
+            <Button
+              onClick={handleOnClick}
+              variant="contained"
+              disabled={!city}
+            >
               Submit
             </Button>
           </ThemeProvider>
@@ -96,10 +104,16 @@ const Input = () => {
               </p>
             </div>
           )}
+          {error && <Alert severity="error">{error}</Alert>}
+          {isLoading && (
+            <Box sx={{ display: "flex" }}>
+              <CircularProgress />
+            </Box>
+          )}
         </Grid>
       </Grid>
     </>
   );
 };
 
-export default Input;
+export default FormComponent;
