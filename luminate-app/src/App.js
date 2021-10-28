@@ -1,6 +1,6 @@
 import React from "react";
-import Input from "./components/UI/Input";
 import "./style/App.css";
+import Input from "./components/UI/Input";
 
 const App = () => {
   return (
@@ -11,7 +11,9 @@ const App = () => {
         <link rel="icon" href="/favicon.png" />
       </header>
       <body className="container">
-        <Input />
+        <div className="card">
+          <Input />
+        </div>
       </body>
     </div>
   );

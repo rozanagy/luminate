@@ -9,5 +9,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.card {
+    padding: 50px;
+    background-color: #FAFAFA;
+    border-radius: 25px;
+    box-shadow: 2px 3px 5px #EA9253;
+    display: flex;
+    flex-direction: column;
     
+
 }
